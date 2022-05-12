@@ -54,7 +54,7 @@ class ProxyManager():
             headers = {'User-Agent': self._user_agent}
             html_text = requests.get(url=self._proxy_source_url,
                                      headers=headers).text
-            soup = BeautifulSoup(markup=html_text, features='html5lib')
+            soup = BeautifulSoup(markup=html_text, features='lxml')
 
             free_proxy_container = soup.find('div', {'class': 'table_block'})
             free_proxy_table = free_proxy_container.find('tbody')

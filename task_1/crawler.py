@@ -1,7 +1,6 @@
 """
 Crawler for scrap data from https://habr.com
 """
-from cgitb import html
 import os
 from typing import List
 from multiprocessing import freeze_support, RLock
@@ -41,7 +40,8 @@ def download_posts(first_id: int,
                    last_id: int,
                    process_number: int,
                    proxies: List[str] = None,
-                   path: str = None) -> None:
+                   path: str = None,
+                   debug: bool = False) -> None:
     """
     Download posts data from https://habr.com
 
@@ -51,8 +51,10 @@ def download_posts(first_id: int,
         process_number: Running process number.
         proxies: Initial proxy list.
         path: Directory where posts are downloaded.
+        debug: If True setting log level to DEBUG, INFO otherwise.
     """
-    logger = logging.get_logger(f'crawler_{process_number}')
+    logger = logging.get_logger(filename=f'crawler_{process_number}',
+                                debug=debug)
     proxy_manager = ProxyManager(logger=logger, proxies=proxies)
     headers = {
         'User-Agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) '
@@ -102,7 +104,8 @@ def download_posts(first_id: int,
 def crawl(first_id: int,
           last_id: int,
           max_workers: int = 1,
-          path: str = 'data/unprocessed_posts') -> None:
+          path: str = 'data/unprocessed_posts',
+          debug: bool = False) -> None:
     """
     Crawl posts data from https://habr.com
 
@@ -114,6 +117,8 @@ def crawl(first_id: int,
         last_id: ID of the last post to be crawled.
         max_workers: The maximum number of processes that will be used
         to crawling.
+        path: Directory where posts are downloaded.
+        debug: If True setting log level to DEBUG, INFO otherwise.
     """
     freeze_support()  # for Windows
 
@@ -124,7 +129,7 @@ def crawl(first_id: int,
     first_ids, last_ids = subintervals.get_subintervals(
         left=first_id, right=last_id, n_intervals=max_workers)
 
-    logger = logging.get_logger(filename='clrawler_main')
+    logger = logging.get_logger(filename='clrawler_main', debug=debug)
     proxy_manager = ProxyManager(logger=logger)
     proxies = proxy_manager.proxies
 
@@ -136,7 +141,8 @@ def crawl(first_id: int,
                   desc=f'Running {max_workers} processes') as process_bar:
             futures = [
                 executor.submit(download_posts, first_ids[i], last_ids[i], i,
-                                proxies, path) for i in range(max_workers)
+                                proxies, path, debug)
+                for i in range(max_workers)
             ]
             for _ in as_completed(futures):
                 process_bar.update()
