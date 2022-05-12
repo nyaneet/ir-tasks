@@ -6,7 +6,7 @@ import os
 
 
 def get_logger(filename: str,
-               path: str,
+               path: str = 'log',
                encoding: str = 'utf-8',
                debug: bool = False) -> logging.Logger:
     """
