@@ -1,6 +1,7 @@
-# Downloaded Posts
-unprocessed_posts/*
+# Downloaded and parsed posts
+data/*
 *.html
+*.json
 
 # Log Files
 log/*
@@ -10,6 +11,9 @@ log/*
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Pylint
+*.stats
 
 # Environments
 .env
