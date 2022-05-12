@@ -24,7 +24,7 @@ def get_subintervals(left: int, right: int,
 
     k, m = divmod(right - left, n_intervals)
     for i in range(n_intervals):
-        left_bounds.append(i * k + min(i, m))
-        right_bounds.append((i + 1) * k + min(i + 1, m))
+        left_bounds.append(left + i * k + min(i, m))
+        right_bounds.append(left + (i + 1) * k + min(i + 1, m))
 
     return left_bounds, right_bounds
