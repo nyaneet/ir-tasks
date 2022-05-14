@@ -50,3 +50,5 @@ python3 extract.py
 ```
 
 ## Results
+[unprocessed_posts.rar](https://drive.google.com/file/d/1EsUOWZJOSDIGzN_ciKl5X4G4fLB9QfN3/view?usp=sharing)
+[processed_posts.rar](https://drive.google.com/file/d/1k8sYZW9tiqtZ2zpwrRLxOaAxhXyH2iLD/view?usp=sharing)
