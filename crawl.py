@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     if (args.first < 0 or args.last < 0):
         raise ValueError('Post id must be positive')
-    if args.first > args.last:
+    if args.first >= args.last:
         raise ValueError('Last id must be greater than first id')
 
     print('Crawler started.')

@@ -83,6 +83,7 @@ def download_posts(first_id: int,
             )
 
             response_status = response.status_code
+            # Post is available
             if response_status == 200:
                 html_text = html_filter(
                     html_text=response.content,
@@ -103,6 +104,7 @@ def download_posts(first_id: int,
                     path,
                     post_id,
                 )
+            # Post is unavailable or deleted
             elif response_status in (404, 403):
                 logger.info(
                     ('Failed to download post "%s"; Post is not'
@@ -110,6 +112,7 @@ def download_posts(first_id: int,
                     post_url,
                     response_status,
                 )
+            # Most likely problem with proxy
             else:
                 proxy_manager.remove_proxy(proxy_address)
                 logger.info(
@@ -143,7 +146,7 @@ def crawl(first_id: int,
         last_id: ID of the last post to be crawled.
         max_workers: The maximum number of processes that will be used
         to crawling.
-        path: Directory where posts are downloaded.
+        path: Directory where posts will be downloaded.
         debug: If True setting log level to DEBUG, INFO otherwise.
     """
     freeze_support()  # for Windows

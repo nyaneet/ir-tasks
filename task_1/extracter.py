@@ -235,7 +235,7 @@ def extract_post_data(file_path: str) -> Dict:
     Extract post data.
 
     Args:
-        file_path:
+        file_path: path to the post html file.
 
     Returns:
         Dictionary of extracted post data.
@@ -267,7 +267,9 @@ def extract_post_data(file_path: str) -> Dict:
 def extract_posts_data(path_src: str = 'data/unprocessed_posts',
                        path_dest: str = 'data/processed_posts') -> None:
     """
-    Doc
+    Args:
+        path_src: Directory where unprocessed posts are stored.
+        path_dest: Directory where processed posts will be saved. 
     """
     if not os.path.exists(path_dest):
         os.makedirs(path_dest)
@@ -280,12 +282,16 @@ def extract_posts_data(path_src: str = 'data/unprocessed_posts',
                 continue
 
             post_id = post['id']
-            with open(f'{path_dest}/{post_id}.json', 'w+',
-                      encoding='utf-8') as file_p:
-                json.dump(
-                    obj=post,
-                    fp=file_p,
-                    sort_keys=True,
-                    indent=4,
-                    ensure_ascii=False,
-                )
+
+            try:
+                with open(f'{path_dest}/{post_id}.json', 'w+',
+                        encoding='utf-8') as file_p:
+                    json.dump(
+                        obj=post,
+                        fp=file_p,
+                        sort_keys=True,
+                        indent=4,
+                        ensure_ascii=False,
+                    )
+            except OSError:
+                pass # Antiivrus blocked some files
