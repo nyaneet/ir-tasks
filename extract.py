@@ -19,7 +19,7 @@ if __name__ == '__main__':
         type=str,
         default='data/processed_posts',
         help=('directory where processed posts will be saved, default data/'
-              'unprocessed_posts'),
+              'processed_posts'),
     )
     
     args = parser.parse_args()

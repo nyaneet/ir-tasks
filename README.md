@@ -6,7 +6,7 @@ Collecting and cleaning the data from the [Habr](https://habr.com/ru/all/), Russ
 
 ## Installation and use
 
-Install the required packages with pip:
+Install the required packages with pip
 ```
 pip install -r requirements.txt
 ```
