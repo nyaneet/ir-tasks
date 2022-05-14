@@ -33,7 +33,7 @@ def clean_text(text: str) -> str:
     Returns:
         Clean text.
     """
-    # Remove everything except letters, numbers, strings
+    # Remove everything except letters and digits
     text = re.sub(r'-', '', text)
     text = re.sub(r'[^\w\s]+', ' ', text)
     # Remove all numbers
