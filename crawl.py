@@ -24,21 +24,21 @@ if __name__ == '__main__':
         '--processes_number',
         type=int,
         default=1,
-        help=('The maximum number of processes that will be used, '
+        help=('the maximum number of processes that will be used, '
               'recommended <=8, default 1'),
     )
     parser.add_argument(
         '--path',
         type=str,
         default='data/unprocessed_posts',
-        help=('Directory where posts are downloaded, default data/'
+        help=('directory where posts are downloaded, default data/'
               'unprocessed_posts'),
     )
     parser.add_argument(
         '-D',
         '--debug',
         action='store_true',
-        help='Setting the log level to DEBUG, default INFO',
+        help='setting the log level to DEBUG, default INFO',
     )
 
     args = parser.parse_args()
@@ -48,8 +48,12 @@ if __name__ == '__main__':
     if args.first > args.last:
         raise ValueError('Last id must be greater than first id')
 
-    crawler.crawl(first_id=args.first,
-                  last_id=args.last,
-                  max_workers=args.processes_number,
-                  path=args.path,
-                  debug=args.debug)
+    print('Crawler started.')
+    crawler.crawl(
+        first_id=args.first,
+        last_id=args.last,
+        max_workers=args.processes_number,
+        path=args.path,
+        debug=args.debug,
+    )
+    print('Done.')

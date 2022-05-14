@@ -86,23 +86,32 @@ class ProxyManager():
         is_working_proxy = False
 
         try:
-            response = requests.get(url=self.checked_url,
-                                    headers=headers,
-                                    proxies=proxies)
+            response = requests.get(
+                url=self.checked_url,
+                headers=headers,
+                proxies=proxies,
+            )
 
             response_status = response.status_code
             if response_status == 200:
                 is_working_proxy = True
-                self.logger.info('Checked proxy "%s"; Proxy is working',
-                                 proxy_address)
+                self.logger.info(
+                    'Checked proxy "%s"; Proxy is working',
+                    proxy_address,
+                )
             else:
                 self.logger.info(
                     'Checked proxy "%s"; Response status code - %d',
-                    proxy_address, response_status)
+                    proxy_address,
+                    response_status,
+                )
 
         except requests.exceptions.RequestException as err:
-            self.logger.error('An error occured while checking proxy "%s": %s',
-                              proxy_address, err)
+            self.logger.error(
+                'An error occured while checking proxy "%s": %s',
+                proxy_address,
+                err,
+            )
 
         return is_working_proxy
 
@@ -131,11 +140,15 @@ class ProxyManager():
         """
         if proxy_address in self.proxies:
             self.proxies.remove(proxy_address)
-            self.logger.info('Proxy "%s" removed from proxy list',
-                             proxy_address)
+            self.logger.info(
+                'Proxy "%s" removed from proxy list',
+                proxy_address,
+            )
         else:
-            self.logger.warning('Proxy list does not contain "%s"',
-                                proxy_address)
+            self.logger.warning(
+                'Proxy list does not contain "%s"',
+                proxy_address,
+            )
 
         if len(self.proxies) == 0:
             self._update_proxies()
